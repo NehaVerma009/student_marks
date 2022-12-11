@@ -71,7 +71,6 @@ const updateapi = async function(req,res)
 
         res.status(200).send({status:true, message:'studentModel Updated Successfully', data:updateData})
 
-
     }
     catch(err)
     {
