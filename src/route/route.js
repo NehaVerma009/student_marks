@@ -11,6 +11,7 @@ router.post('/login',teacherController.loginUser)
 router.post("/create",studentController.createstudent)
 router.get("/get",studentController.getStudent)
 router.put("/update",studentController.updateapi)
+router.delete("/delete",studentController.studentdelete)
 
 
 router.all("/*", async function(req,res){

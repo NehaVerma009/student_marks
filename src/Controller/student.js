@@ -80,4 +80,32 @@ const updateapi = async function(req,res)
 
 }
 
-module.exports = { createstudent, getStudent,updateapi }
+
+//---------------------------------------------Delete API-------------------------------------------------
+
+let studentdelete = async function (req, res) {
+  try {
+    let userId = req.body._id
+    
+    const checkstudentId = await studentModel.findOne({
+      _id: userId,
+      isDeleted: false,
+    });
+    if (!checkstudentId)
+      return res
+        .status(404)
+        .send({ status: false, message: "student Not Found Maybe Deleted" });
+
+    await studentModel.findOneAndUpdate(
+      { _id: checkstudentId._id },
+      { isDeleted: true, deletedAt: new Date() }
+    );
+    return res
+      .status(200)
+      .send({ status: true, message: "Successfully Deleted" });
+  } catch (err) {
+    res.status(500).send({ status: false, msg: err.message });
+  }
+};
+
+module.exports = { createstudent, getStudent,updateapi, studentdelete }
